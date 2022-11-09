@@ -1,5 +1,7 @@
+vboxmanage showvminfo debian9 | findstr /i "NIC"
+
 #built-in adapters
- $nics = Get-NetAdapter -Name * | where PnPDeviceID -CLike "*VEN_8086&DEV_1539*" | sort-object -Property PnPDeviceID 
+ $nics = Get-NetAdapter -Name * | Where-Object PnPDeviceID -CLike "*VEN_8086&DEV_1539*" | sort-object -Property PnPDeviceID 
  $count=1
  foreach ($nic in $nics)
  {
@@ -12,10 +14,10 @@
         }
     $count++
  }
- Get-NetAdapter -Name * | where PnPDeviceID -CLike "*VEN_8086&DEV_1539*" | sort-object -Property PnPDeviceID  | Format-table Name, ifDesc, MacAddress, PnPDeviceID, PromiscuousMode, DeviceName
+ Get-NetAdapter -Name * | Where-Object PnPDeviceID -CLike "*VEN_8086&DEV_1539*" | sort-object -Property PnPDeviceID  | Format-table Name, ifDesc, MacAddress, PnPDeviceID, PromiscuousMode, DeviceName
 
 #wifi
-$nics = Get-NetAdapter -Name * | where PnPDeviceID -CLike "*VID_13D3&PID_3273*" | sort-object -Property PnPDeviceID 
+$nics = Get-NetAdapter -Name * | Where-Object PnPDeviceID -CLike "*VID_13D3&PID_3273*" | sort-object -Property PnPDeviceID 
  $count=1
  foreach ($nic in $nics)
  {

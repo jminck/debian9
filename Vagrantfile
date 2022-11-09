@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox"
   config.vm.network "private_network", ip: "192.168.33.10"
   #ingress NIC
-  config.vm.network "public_network", type: "dhcp", bridge: "Intel(R) I211 Gigabit Network Connection"
+  config.vm.network "public_network", type: "dhcp", bridge: "Intel(R) I211 Gigabit Network Connection #4"
   #egress NIC
   config.vm.network "public_network", type: "dhcp", bridge: "Intel(R) I211 Gigabit Network Connection #2"
 
@@ -89,8 +89,12 @@ Vagrant.configure("2") do |config|
     #remove all rules
     echo echo ingress > remove-all-rules.sh
     echo sudo tc qdisc del dev $ingress root netem \2\>/dev/null \|\| true >> remove-all-rules.sh
+    echo sudo tc qdisc del dev $ingress root \2\>/dev/null \|\| true >> remove-all-rules.sh
+    echo sudo tc qdisc add dev $egress root pfifo \2\>/dev/null \|\| true >> remove-all-rules.sh
     echo echo  egress >> remove-all-rules.sh
     echo sudo tc qdisc del dev $egress root netem \2\>/dev/null \|\| true >> remove-all-rules.sh
+    echo sudo tc qdisc del dev $ingress root \2\>/dev/null \|\| true >> remove-all-rules.sh
+    echo sudo tc qdisc add dev $egress root pfifo \2\>/dev/null \|\| true >> remove-all-rules.sh
     chmod +x *sh
 
 
