@@ -32,6 +32,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
+    nat="eth0"
+    private="eth1"
     egress="eth2"
     ingress="eth3"
     sudo apt update
